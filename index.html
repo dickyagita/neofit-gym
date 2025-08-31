@@ -1,0 +1,2331 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neofit Gym - Pusat Kebugaran Terbaik</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'neofit-green': '#7CFC00',
+                        'neofit-dark': '#0a0a0a',
+                        'neofit-gray': '#1a1a1a',
+                        'neofit-light': '#f5f5f5',
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 3s ease-in-out infinite',
+                        'spin-slow': 'spin 8s linear infinite',
+                        'bounce-slow': 'bounce 2s infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        bounce: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-5px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+            background-color: #0a0a0a;
+            color: #f5f5f5;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .hero-bg {
+            background: linear-gradient(rgba(10, 10, 10, 0.85), rgba(10, 10, 10, 0.9)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .facility-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .facility-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .facility-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(124, 252, 0, 0.1), transparent);
+            transition: 0.5s;
+        }
+        
+        .facility-card:hover::before {
+            left: 100%;
+        }
+        
+        .pricing-card {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            transform: translateY(0);
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(124, 252, 0, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .pricing-card:hover::before {
+            left: 100%;
+        }
+        
+        .trainer-card:hover img {
+            transform: scale(1.05);
+        }
+        
+        .testimonial-card {
+            transition: all 0.3s ease;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .social-icon {
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-5px) scale(1.1);
+        }
+        
+        .blog-card {
+            transition: all 0.3s ease;
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .blog-card:hover img {
+            transform: scale(1.05);
+        }
+        
+        .pulse-neofit {
+            animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: #7CFC00;
+            color: #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(124, 252, 0, 0.3);
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+        
+        .scroll-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .membership-badge {
+            position: absolute;
+            top: 20px;
+            right: -30px;
+            background: #7CFC00;
+            color: #000;
+            padding: 5px 30px;
+            transform: rotate(45deg);
+            font-weight: bold;
+            font-size: 12px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .class-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(124, 252, 0, 0.9);
+            color: #000;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        
+        .progress-bar {
+            height: 4px;
+            background: #7CFC00;
+            width: 0%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 9999;
+            transition: width 0.3s ease;
+        }
+        
+        .counter {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #7CFC00;
+        }
+        
+        .counter-label {
+            font-size: 1rem;
+            color: #aaa;
+        }
+        
+        .floating-element {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .stats-card {
+            transition: all 0.3s ease;
+        }
+        
+        .stats-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+        
+        .gallery-item img {
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(124, 252, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+        
+        .testimonial-slider {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .testimonial-slide {
+            min-width: 100%;
+            transition: transform 0.5s ease;
+        }
+        
+        .testimonial-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background: rgba(124, 252, 0, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .testimonial-nav:hover {
+            background: #7CFC00;
+            color: #000;
+        }
+        
+        .testimonial-nav.prev {
+            left: 10px;
+        }
+        
+        .testimonial-nav.next {
+            right: 10px;
+        }
+        
+        .testimonial-dots {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .testimonial-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #555;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .testimonial-dot.active {
+            background: #7CFC00;
+        }
+        
+        .faq-item {
+            border-bottom: 1px solid #333;
+            padding: 15px 0;
+        }
+        
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+        }
+        
+        .cta-section {
+            background: linear-gradient(rgba(10, 10, 10, 0.9), rgba(10, 10, 10, 0.9)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .cta-card {
+            background: rgba(26, 26, 26, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(124, 252, 0, 0.3);
+        }
+        
+        .membership-feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .membership-feature i {
+            color: #7CFC00;
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .pricing-card.popular {
+            transform: scale(1.05);
+            border-color: #7CFC00;
+        }
+        
+        .pricing-card.popular .membership-badge {
+            display: block;
+        }
+        
+        .pricing-card .membership-badge {
+            display: none;
+        }
+        
+        .trainer-social {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+        
+        .trainer-card:hover .trainer-social {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .class-schedule {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .class-schedule::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: #7CFC00;
+        }
+        
+        .class-time {
+            background: rgba(124, 252, 0, 0.1);
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+        
+        .class-level {
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+        
+        .level-beginner {
+            background: rgba(46, 204, 113, 0.2);
+            color: #2ecc71;
+        }
+        
+        .level-intermediate {
+            background: rgba(52, 152, 219, 0.2);
+            color: #3498db;
+        }
+        
+        .level-advanced {
+            background: rgba(231, 76, 60, 0.2);
+            color: #e74c3c;
+        }
+        
+        .blog-date {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: #7CFC00;
+            color: #000;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+        
+        .blog-category {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+        
+        .contact-info {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        
+        .contact-info i {
+            color: #7CFC00;
+            font-size: 1.2rem;
+            margin-right: 15px;
+            margin-top: 5px;
+        }
+        
+        .map-container {
+            height: 300px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            margin-top: 20px;
+        }
+        
+        .newsletter-form input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 4px 0 0 4px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+        
+        .newsletter-form button {
+            background: #7CFC00;
+            color: #000;
+            border: none;
+            padding: 0 20px;
+            border-radius: 0 4px 4px 0;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .newsletter-form button:hover {
+            background: #6ae000;
+        }
+        
+        .footer-links h4 {
+            position: relative;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: #7CFC00;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links ul li a {
+            color: #aaa;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links ul li a:hover {
+            color: #7CFC00;
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background: #7CFC00;
+            color: #000;
+            transform: translateY(-3px);
+        }
+        
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            height: 100vh;
+            background: #0a0a0a;
+            z-index: 10000;
+            transition: all 0.3s ease;
+            padding: 20px;
+        }
+        
+        .mobile-menu.active {
+            right: 0;
+        }
+        
+        .mobile-menu .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .mobile-menu nav {
+            margin-top: 60px;
+        }
+        
+        .mobile-menu nav a {
+            display: block;
+            padding: 15px 0;
+            border-bottom: 1px solid #333;
+            font-size: 1.2rem;
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0a0a0a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 99999;
+            transition: all 0.5s ease;
+        }
+        
+        .preloader.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(124, 252, 0, 0.3);
+            border-top: 5px solid #7CFC00;
+            border-radius: 50%;
+            animation: spin-slow 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .floating-shape {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(124, 252, 0, 0.1);
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .shape-1 {
+            width: 100px;
+            height: 100px;
+            top: 10%;
+            left: 5%;
+        }
+        
+        .shape-2 {
+            width: 150px;
+            height: 150px;
+            bottom: 15%;
+            right: 10%;
+            animation-delay: 1s;
+        }
+        
+        .shape-3 {
+            width: 80px;
+            height: 80px;
+            top: 40%;
+            right: 20%;
+            animation-delay: 2s;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-title {
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero-subtitle {
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: #7CFC00;
+        }
+        
+        .class-card {
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+        
+        .class-card:hover {
+            border-color: #7CFC00;
+            transform: translateY(-5px);
+        }
+        
+        .trainer-image {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+        
+        .trainer-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .trainer-card:hover .trainer-image::before {
+            opacity: 1;
+        }
+        
+        .trainer-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .trainer-card:hover .trainer-overlay {
+            transform: translateY(0);
+        }
+        
+        .pricing-popular {
+            position: relative;
+            transform: scale(1.05);
+            border-color: #7CFC00;
+            z-index: 10;
+        }
+        
+        .pricing-popular .membership-badge {
+            display: block;
+        }
+        
+        .blog-meta {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 15px;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        .blog-meta i {
+            color: #7CFC00;
+        }
+        
+        .testimonial-content {
+            position: relative;
+            padding: 30px;
+        }
+        
+        .testimonial-content::before {
+            content: '"';
+            position: absolute;
+            top: -20px;
+            left: -10px;
+            font-size: 5rem;
+            color: rgba(124, 252, 0, 0.2);
+            font-family: Georgia, serif;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+        }
+        
+        .testimonial-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+        
+        .faq-question i {
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+        
+        .contact-form .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .contact-form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #333;
+            border-radius: 4px;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: #7CFC00;
+            box-shadow: 0 0 0 2px rgba(124, 252, 0, 0.2);
+        }
+        
+        .contact-form textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .contact-form button {
+            background: #7CFC00;
+            color: #000;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-form button:hover {
+            background: #6ae000;
+            transform: translateY(-2px);
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #333;
+            padding-top: 20px;
+            margin-top: 40px;
+            text-align: center;
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: #7CFC00;
+            color: #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(124, 252, 0, 0.3);
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .back-to-top:hover {
+            background: #6ae000;
+            transform: translateY(-5px);
+        }
+        
+        .floating-action {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            z-index: 1000;
+        }
+        
+        .floating-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #7CFC00;
+            color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(124, 252, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .floating-btn:hover {
+            background: #6ae000;
+            transform: translateY(-5px) scale(1.1);
+        }
+        
+        .floating-btn i {
+            font-size: 1.2rem;
+        }
+        
+        .floating-btn.whatsapp {
+            background: #25D366;
+        }
+        
+        .floating-btn.whatsapp:hover {
+            background: #128C7E;
+        }
+        
+        .floating-btn.call {
+            background: #34B7F1;
+        }
+        
+        .floating-btn.call:hover {
+            background: #1DA1F2;
+        }
+        
+        @media (max-width: 768px) {
+            .floating-action {
+                bottom: 80px;
+                right: 20px;
+            }
+            
+            .floating-btn {
+                width: 45px;
+                height: 45px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-neofit-dark text-gray-100">
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="spinner"></div>
+    </div>
+    
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="close-btn" id="closeMenu">
+            <i class="fas fa-times"></i>
+        </div>
+        <nav>
+            <a href="#tentang">Tentang Kami</a>
+            <a href="#fasilitas">Fasilitas</a>
+            <a href="#paket">Paket & Harga</a>
+            <a href="#jadwal">Jadwal Kelas</a>
+            <a href="#trainer">Trainer</a>
+            <a href="#galeri">Galeri</a>
+            <a href="#testimoni">Testimoni</a>
+            <a href="#cabang">Cabang</a>
+            <a href="#kontak">Kontak</a>
+        </nav>
+    </div>
+    
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
+    
+    <!-- Floating Action Buttons -->
+    <div class="floating-action">
+        <div class="floating-btn whatsapp">
+            <i class="fab fa-whatsapp"></i>
+        </div>
+        <div class="back-to-top" id="backToTop">
+            <i class="fas fa-arrow-up"></i>
+        </div>
+    </div>
+    
+    <!-- Header -->
+    <header class="fixed w-full z-50 bg-neofit-dark bg-opacity-95 backdrop-blur-sm border-b border-gray-800">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <div class="w-12 h-12 rounded-full bg-neofit-green flex items-center justify-center mr-3">
+                    <i class="fas fa-dumbbell text-black text-xl"></i>
+                </div>
+                <h1 class="text-2xl font-bold text-neofit-green tracking-wider">NEOFIT<span class="text-white">GYM</span></h1>
+            </div>
+            
+            <nav class="hidden md:flex space-x-8">
+                <a href="#tentang" class="hover:text-neofit-green transition font-medium">Tentang Kami</a>
+                <a href="#fasilitas" class="hover:text-neofit-green transition font-medium">Fasilitas</a>
+                <a href="#paket" class="hover:text-neofit-green transition font-medium">Paket & Harga</a>
+                <a href="#jadwal" class="hover:text-neofit-green transition font-medium">Jadwal Kelas</a>
+                <a href="#trainer" class="hover:text-neofit-green transition font-medium">Trainer</a>
+                <a href="#galeri" class="hover:text-neofit-green transition font-medium">Galeri</a>
+                <a href="#testimoni" class="hover:text-neofit-green transition font-medium">Testimoni</a>
+                <a href="#cabang" class="hover:text-neofit-green transition font-medium">Cabang</a>
+                <a href="#kontak" class="hover:text-neofit-green transition font-medium">Kontak</a>
+            </nav>
+            
+            <div class="flex items-center space-x-4">
+                <button class="hidden md:block bg-neofit-green hover:bg-lime-400 text-gray-900 font-bold py-2 px-6 rounded-full text-sm transition duration-300 transform hover:scale-105">
+                    Daftar Sekarang
+                </button>
+                <button class="md:hidden text-2xl" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-bg h-screen flex items-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
+        <div class="floating-shape shape-1"></div>
+        <div class="floating-shape shape-2"></div>
+        <div class="floating-shape shape-3"></div>
+        <div class="container mx-auto px-4 text-center hero-content">
+            <h1 class="hero-title text-4xl md:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight">
+                BENTUK TUBUH <span class="text-neofit-green">IDEALMU</span><br>
+                BERSAMA <span class="text-neofit-green">NEOFIT GYM</span>
+            </h1>
+            <p class="hero-subtitle text-xl md:text-2xl mb-10 max-w-3xl mx-auto text-gray-300">
+                Pusat kebugaran premium dengan fasilitas lengkap dan pelatih profesional untuk membantu Anda mencapai tujuan kebugaran.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <button class="bg-neofit-green hover:bg-lime-400 text-gray-900 font-bold py-4 px-10 rounded-full text-lg transition duration-300 transform hover:scale-105 pulse-neofit">
+                    <i class="fas fa-user-plus mr-2"></i> Daftar Sekarang
+                </button>
+                <button class="border-2 border-neofit-green text-neofit-green hover:bg-neofit-green hover:text-gray-900 font-bold py-4 px-10 rounded-full text-lg transition duration-300">
+                    <i class="fas fa-info-circle mr-2"></i> Lihat Fasilitas
+                </button>
+            </div>
+        </div>
+        
+        <!-- Floating elements -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <a href="#tentang" class="text-neofit-green text-2xl">
+                <i class="fas fa-chevron-down"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-12 bg-neofit-gray">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div class="stats-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="counter" data-target="5000">0</div>
+                    <div class="counter-label">MEMBER AKTIF</div>
+                </div>
+                <div class="stats-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="counter" data-target="25">0</div>
+                    <div class="counter-label">TRAINER PROFESIONAL</div>
+                </div>
+                <div class="stats-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="counter" data-target="15">0</div>
+                    <div class="counter-label">CABANG</div>
+                </div>
+                <div class="stats-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="counter" data-target="98">0</div>
+                    <div class="counter-label">KEPUASAN MEMBER (%)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tentang Kami -->
+    <section id="tentang" class="py-20 bg-neofit-gray relative">
+        <div class="absolute top-0 left-0 w-full h-full opacity-5" style="background: url('https://www.transparenttextures.com/patterns/carbon-fibre.png')"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="section-title text-3xl md:text-4xl font-bold mb-4">TENTANG <span class="text-neofit-green">KAMI</span></h2>
+                <p class="max-w-2xl mx-auto text-gray-400 mt-6">Misi kami adalah membantu Anda mencapai kebugaran terbaik dengan fasilitas modern dan pelatih profesional</p>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/2" data-aos="fade-right">
+                    <div class="relative">
+                        <div class="absolute -inset-4 bg-neofit-green rounded-2xl opacity-20 blur-lg"></div>
+                        <img src="https://images.unsplash.com/photo-1641337221253-fdc7237f6b61?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTV8fGd5bXxlbnwwfDB8MHx8fDA%3D" alt="Interior Gym" class="rounded-2xl shadow-2xl relative z-10">
+                    </div>
+                </div>
+                <div class="lg:w-1/2" data-aos="fade-left">
+                    <h3 class="text-2xl font-bold mb-6">Misi Kami Membantu Anda Menjadi Lebih Baik</h3>
+                    <p class="mb-6 text-gray-300">Neofit Gym didirikan dengan tujuan memberikan pengalaman kebugaran terbaik bagi setiap individu. Kami percaya bahwa kebugaran bukan hanya tentang penampilan, tetapi juga tentang kesehatan dan kualitas hidup yang lebih baik.</p>
+                    <p class="mb-8 text-gray-300">Dengan fasilitas modern, pelatih profesional, dan lingkungan yang mendukung, kami membantu Anda mencapai tujuan kebugaran Anda dengan cara yang menyenangkan dan efektif.</p>
+                    
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="flex items-start">
+                            <div class="text-neofit-green text-2xl mr-3 mt-1">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">Fasilitas Modern</h4>
+                                <p class="text-gray-400 text-sm">Peralatan terbaru untuk latihan optimal</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="text-neofit-green text-2xl mr-3 mt-1">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">Pelatih Profesional</h4>
+                                <p class="text-gray-400 text-sm">Sertifikasi internasional</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="text-neofit-green text-2xl mr-3 mt-1">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">Program Personal</h4>
+                                <p class="text-gray-400 text-sm">Disesuaikan dengan kebutuhan Anda</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="text-neofit-green text-2xl mr-3 mt-1">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">Lingkungan Mendukung</h4>
+                                <p class="text-gray-400 text-sm">Ramah dan motivasi tinggi</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fasilitas & Layanan -->
+    <section id="fasilitas" class="py-20 bg-neofit-dark">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="section-title text-3xl md:text-4xl font-bold mb-4">FASILITAS & <span class="text-neofit-green">LAYANAN</span></h2>
+                <p class="max-w-2xl mx-auto text-gray-400 mt-6">Kami menyediakan fasilitas lengkap untuk memastikan pengalaman kebugaran terbaik bagi Anda</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="facility-card bg-neofit-gray rounded-2xl p-8 border border-gray-800 hover:border-neofit-green transition duration-300" data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-neofit-green text-5xl mb-6">
+                        <i class="fas fa-dumbbell"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Area Latihan Beban</h3>
+                    <p class="text-gray-400 mb-6">Peralatan beban modern dan lengkap untuk semua jenis latihan kekuatan</p>
+                    <ul class="space-y-2 text-gray-300">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-neofit-green mr-2 text-sm"></i>
+                            <span>Free Weights Area</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-neofit-green mr-2 text-sm"></i>
+                            <span>Machine Weights</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-neofit-green mr-2 text-sm"></i>
+                            <span>Functional Training Area</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="facility-card bg-neofit-gray rounded-2xl p-8 border border-gray-800 hover:border-neofit-green transition duration-300" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-neofit-green text-5xl mb-6">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Area Cardio</h3>
+                    <p class="text-gray-400 mb-6">Berbagai alat cardio terbaru untuk meningkatkan daya tahan jantung</p>
+                    <ul class="space-y-2 text-gray-300">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-neofit-green mr-2 text-sm"></i>
+                            <span>Treadmills</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-neofit-green mr-2 text-sm"></i>
+                            <span>Ellipticals</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-neofit-green mr-2 text-sm"></i>
+                            <span>Stationary Bikes</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="facility-card bg-neofit-gray rounded-2xl p-8 border border-gray-800 hover:border-neofit-green transition duration-300" data-aos="fade-up" data-aos-delay="300">
+                    <div class="text-neofit-green text-5xl mb-6">
+                        <i class="fas fa-spa"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Area Spa & Relaksasi</h3>
+                    <p class="text-gray-400 mb-6">Fasilitas spa untuk pemulihan pasca latihan dan relaksasi</p>
+                    <ul class="space-y-2 text-gray-300">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-neofit-green mr-2 text-sm"></i>
+                            <span>Sauna Room</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-neofit-green mr-2 text-sm"></i>
+                            <span>Steam Room</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-neofit-green mr-2 text-sm"></i>
+                            <span>Massage Therapy</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="facility-card bg-neofit-gray rounded-2xl p-8 border border-gray-800 hover:border-neofit-green transition duration-300" data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-neofit-green text-5xl mb-6">
+                        <i class="fas fa-swimmer"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Kolam Renang</h3>
+                    <p class="text-gray-400 mb-6">Kolam renang berstandar olimpiade untuk latihan dan relaksasi</p>
+                    <ul class="space-y-2 text-gray-300">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-neofit-green mr-2 text-sm"></i>
+                            <span>25m Lap Pool</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-neofit-green mr-2 text-sm"></i>
+                            <span>Recreation Pool</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-neofit-green mr-2 text-sm"></i>
+                            <span>Swim Classes</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="facility-card bg-neofit-gray rounded-2xl p-8 border border-gray-800 hover:border-neofit-green transition duration-300" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-neofit-green text-5xl mb-6">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Kafe Sehat</h3>
+                    <p class="text-gray-400 mb-6">Menyediakan makanan dan minuman sehat untuk mendukung program kebugaran</p>
+                    <ul class="space-y-2 text-gray-300">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-neofit-green mr-2 text-sm"></i>
+                            <span>Protein Shakes</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-neofit-green mr-2 text-sm"></i>
+                            <span>Healthy Meals</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-neofit-green mr-2 text-sm"></i>
+                            <span>Nutrition Consultation</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="facility-card bg-neofit-gray rounded-2xl p-8 border border-gray-800 hover:border-neofit-green transition duration-300" data-aos="fade-up" data-aos-delay="300">
+                    <div class="text-neofit-green text-5xl mb-6">
+                        <i class="fas fa-user-friends"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Kelas Kelompok</h3>
+                    <p class="text-gray-400 mb-6">Berbagai kelas kelompok yang menyenangkan dan efektif untuk semua level</p>
+                    <ul class="space-y-2 text-gray-300">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-neofit-green mr-2 text-sm"></i>
+                            <span>Yoga & Pilates</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-neofit-green mr-2 text-sm"></i>
+                            <span>HIIT & Cardio</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-neofit-green mr-2 text-sm"></i>
+                            <span>Dance Fitness</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Paket & Harga -->
+    <section id="paket" class="py-20 bg-neofit-gray relative">
+        <div class="absolute top-0 left-0 w-full h-full opacity-5" style="background: url('https://www.transparenttextures.com/patterns/carbon-fibre.png')"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="section-title text-3xl md:text-4xl font-bold mb-4">PAKET & <span class="text-neofit-green">HARGA</span></h2>
+                <p class="max-w-2xl mx-auto text-gray-400 mt-6">Pilih paket yang sesuai dengan kebutuhan dan tujuan kebugaran Anda</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="pricing-card bg-neofit-dark rounded-2xl p-8 border border-gray-800" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="text-2xl font-bold mb-4">Pemula</h3>
+                    <div class="mb-6">
+                        <span class="text-4xl font-bold">Rp 250.000</span>
+                        <span class="text-gray-400">/bulan</span>
+                    </div>
+                    <ul class="mb-8 space-y-4">
+                        <li class="membership-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Akses area latihan dasar</span>
+                        </li>
+                        <li class="membership-feature">
+                            <i class="fas fa-check"></i>
+                            <span>1 kelas kelompok per minggu</span>
+                        </li>
+                        <li class="membership-feature">
+                            <i class="fas fa-times text-gray-600"></i>
+                            <span class="text-gray-600">Pelatih pribadi</span>
+                        </li>
+                        <li class="membership-feature">
+                            <i class="fas fa-times text-gray-600"></i>
+                            <span class="text-gray-600">Akses kolam renang</span>
+                        </li>
+                        <li class="membership-feature">
+                            <i class="fas fa-times text-gray-600"></i>
+                            <span class="text-gray-600">Akses spa</span>
+                        </li>
+                    </ul>
+                    <button class="w-full py-3 bg-gray-800 hover:bg-neofit-green hover:text-gray-900 rounded-lg font-bold transition duration-300">
+                        Pilih Paket
+                    </button>
+                </div>
+                
+                <div class="pricing-card bg-gradient-to-br from-neofit-dark to-black rounded-2xl p-8 border-2 border-neofit-green pricing-popular relative" data-aos="fade-up" data-aos-delay="200">
+                    <div class="membership-badge">POPULER</div>
+                    <h3 class="text-2xl font-bold mb-4">Standar</h3>
+                    <div class="mb-6">
+                        <span class="text-4xl font-bold">Rp 450.000</span>
+                        <span class="text-gray-400">/bulan</span>
+                    </div>
+                    <ul class="mb-8 space-y-4">
+                        <li class="membership-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Akses semua area latihan</span>
+                        </li>
+                        <li class="membership-feature">
+                            <i class="fas fa-check"></i>
+                            <span>3 kelas kelompok per minggu</span>
+                        </li>
+                        <li class="membership-feature">
+                            <i class="fas fa-check"></i>
+                            <span>1 sesi pelatih pribadi/bulan</span>
+                        </li>
+                        <li class="membership-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Akses kolam renang</span>
+                        </li>
+                        <li class="membership-feature">
+                            <i class="fas fa-times text-gray-600"></i>
+                            <span class="text-gray-600">Akses spa</span>
+                        </li>
+                    </ul>
+                    <button class="w-full py-3 bg-neofit-green text-gray-900 hover:bg-lime-400 rounded-lg font-bold transition duration-300">
+                        Pilih Paket
+                    </button>
+                </div>
+                
+                <div class="pricing-card bg-neofit-dark rounded-2xl p-8 border border-gray-800" data-aos="fade-up" data-aos-delay="300">
+                    <h3 class="text-2xl font-bold mb-4">Premium</h3>
+                    <div class="mb-6">
+                        <span class="text-4xl font-bold">Rp 750.000</span>
+                        <span class="text-gray-400">/bulan</span>
+                    </div>
+                    <ul class="mb-8 space-y-4">
+                        <li class="membership-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Akses semua area latihan</span>
+                        </li>
+                        <li class="membership-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Kelas kelompok tak terbatas</span>
+                        </li>
+                        <li class="membership-feature">
+                            <i class="fas fa-check"></i>
+                            <span>4 sesi pelatih pribadi/bulan</span>
+                        </li>
+                        <li class="membership-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Akses kolam renang & spa</span>
+                        </li>
+                        <li class="membership-feature">
+                            <i class="fas fa-check"></i>
+                            <span>Konsultasi nutrisi</span>
+                        </li>
+                    </ul>
+                    <button class="w-full py-3 bg-gray-800 hover:bg-neofit-green hover:text-gray-900 rounded-lg font-bold transition duration-300">
+                        Pilih Paket
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Jadwal Kelas -->
+    <section id="jadwal" class="py-20 bg-neofit-dark">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="section-title text-3xl md:text-4xl font-bold mb-4">JADWAL <span class="text-neofit-green">KELAS</span></h2>
+                <p class="max-w-2xl mx-auto text-gray-400 mt-6">Ikuti berbagai kelas menarik yang kami sediakan setiap hari</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="class-card bg-neofit-gray rounded-2xl p-6 border border-gray-800" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-bold">Yoga Pagi</h3>
+                        <span class="class-time">07:00 - 08:00</span>
+                    </div>
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-gray-400">Senin & Jumat</span>
+                        <span class="class-level level-beginner">Pemula</span>
+                    </div>
+                    <div class="flex items-center text-gray-400">
+                        <i class="fas fa-user mr-2"></i>
+                        <span>Siti Rahayu</span>
+                    </div>
+                </div>
+                
+                <div class="class-card bg-neofit-gray rounded-2xl p-6 border border-gray-800" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-bold">HIIT Intens</h3>
+                        <span class="class-time">17:00 - 18:00</span>
+                    </div>
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-gray-400">Selasa</span>
+                        <span class="class-level level-advanced">Advanced</span>
+                    </div>
+                    <div class="flex items-center text-gray-400">
+                        <i class="fas fa-user mr-2"></i>
+                        <span>Budi Santoso</span>
+                    </div>
+                </div>
+                
+                <div class="class-card bg-neofit-gray rounded-2xl p-6 border border-gray-800" data-aos="fade-up" data-aos-delay="300">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-bold">Zumba Dance</h3>
+                        <span class="class-time">18:30 - 19:30</span>
+                    </div>
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-gray-400">Rabu</span>
+                        <span class="class-level level-intermediate">Menengah</span>
+                    </div>
+                    <div class="flex items-center text-gray-400">
+                        <i class="fas fa-user mr-2"></i>
+                        <span>Anisa Putri</span>
+                    </div>
+                </div>
+                
+                <div class="class-card bg-neofit-gray rounded-2xl p-6 border border-gray-800" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-bold">Power Lifting</h3>
+                        <span class="class-time">19:00 - 20:30</span>
+                    </div>
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-gray-400">Kamis</span>
+                        <span class="class-level level-advanced">Advanced</span>
+                    </div>
+                    <div class="flex items-center text-gray-400">
+                        <i class="fas fa-user mr-2"></i>
+                        <span>Dedi Prasetyo</span>
+                    </div>
+                </div>
+                
+                <div class="class-card bg-neofit-gray rounded-2xl p-6 border border-gray-800" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-bold">Pilates Core</h3>
+                        <span class="class-time">07:00 - 08:00</span>
+                    </div>
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-gray-400">Jumat</span>
+                        <span class="class-level level-beginner">Pemula</span>
+                    </div>
+                    <div class="flex items-center text-gray-400">
+                        <i class="fas fa-user mr-2"></i>
+                        <span>Lisa Wijaya</span>
+                    </div>
+                </div>
+                
+                <div class="class-card bg-neofit-gray rounded-2xl p-6 border border-gray-800" data-aos="fade-up" data-aos-delay="300">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-bold">Cardio Dance</h3>
+                        <span class="class-time">09:00 - 10:00</span>
+                    </div>
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-gray-400">Sabtu</span>
+                        <span class="class-level level-intermediate">Menengah</span>
+                    </div>
+                    <div class="flex items-center text-gray-400">
+                        <i class="fas fa-user mr-2"></i>
+                        <span>Anisa Putri</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-10 text-center" data-aos="fade-up">
+                <button class="border-2 border-neofit-green text-neofit-green hover:bg-neofit-green hover:text-gray-900 font-bold py-3 px-8 rounded-full text-lg transition duration-300">
+                    Download Jadwal Lengkap
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trainer -->
+    <section id="trainer" class="py-20 bg-neofit-gray relative">
+        <div class="absolute top-0 left-0 w-full h-full opacity-5" style="background: url('https://www.transparenttextures.com/patterns/carbon-fibre.png')"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="section-title text-3xl md:text-4xl font-bold mb-4">TRAINER <span class="text-neofit-green">PROFESSIONAL</span></h2>
+                <p class="max-w-2xl mx-auto text-gray-400 mt-6">Pelatih kami adalah ahli dalam bidangnya dengan sertifikasi internasional</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="trainer-card text-center relative" data-aos="fade-up" data-aos-delay="100">
+                    <div class="trainer-image w-48 h-48 mx-auto mb-6 relative">
+                        <img src="https://images.unsplash.com/photo-1579758629938-03607ccdbaba?q=80&w=3270&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Trainer" class="w-full h-full object-cover">
+                        <div class="trainer-overlay">
+                            <div class="social-links justify-center">
+                                <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-neofit-green transition">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-neofit-green transition">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-neofit-green transition">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold">Budi Santoso</h3>
+                    <p class="text-neofit-green mb-3">Spesialis HIIT & Cardio</p>
+                    <p class="text-gray-400 text-sm">Sertifikasi NASM & ACE</p>
+                </div>
+                
+                <div class="trainer-card text-center relative" data-aos="fade-up" data-aos-delay="200">
+                    <div class="trainer-image w-48 h-48 mx-auto mb-6 relative">
+                        <img src="https://images.unsplash.com/photo-1582478815315-9f20b930cd8c?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fHRyYWluZXJ8ZW58MHwyfDB8fHww" alt="Trainer" class="w-full h-full object-cover">
+                        <div class="trainer-overlay">
+                            <div class="social-links justify-center">
+                                <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-neofit-green transition">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-neofit-green transition">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-neofit-green transition">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold">Siti Rahayu</h3>
+                    <p class="text-neofit-green mb-3">Spesialis Yoga & Pilates</p>
+                    <p class="text-gray-400 text-sm">Sertifikasi Yoga Alliance & Stott Pilates</p>
+                </div>
+                
+                <div class="trainer-card text-center relative" data-aos="fade-up" data-aos-delay="300">
+                    <div class="trainer-image w-48 h-48 mx-auto mb-6 relative">
+                        <img src="https://images.unsplash.com/photo-1667900334718-df911f695074?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8dHJhaW5lcnxlbnwwfDJ8MHx8fDA%3D" alt="Trainer" class="w-full h-full object-cover">
+                        <div class="trainer-overlay">
+                            <div class="social-links justify-center">
+                                <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-neofit-green transition">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-neofit-green transition">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-neofit-green transition">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold">Dedi Prasetyo</h3>
+                    <p class="text-neofit-green mb-3">Spesialis Power Lifting</p>
+                    <p class="text-gray-400 text-sm">Sertifikasi IPF & USAW</p>
+                </div>
+                
+                <div class="trainer-card text-center relative" data-aos="fade-up" data-aos-delay="400">
+                    <div class="trainer-image w-48 h-48 mx-auto mb-6 relative">
+                        <img src="https://images.unsplash.com/photo-1519311965067-36d3e5f33d39?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1171&q=80" alt="Trainer" class="w-full h-full object-cover">
+                        <div class="trainer-overlay">
+                            <div class="social-links justify-center">
+                                <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-neofit-green transition">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-neofit-green transition">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-neofit-green transition">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold">Andi Nova</h3>
+                    <p class="text-neofit-green mb-3">Spesialis Dance Fitness</p>
+                    <p class="text-gray-400 text-sm">Sertifikasi Zumba & Aerobics</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galeri -->
+    <section id="galeri" class="py-20 bg-neofit-dark">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="section-title text-3xl md:text-4xl font-bold mb-4">GALERI <span class="text-neofit-green">NEOFIT GYM</span></h2>
+                <p class="max-w-2xl mx-auto text-gray-400 mt-6">Dokumentasi aktivitas dan suasana di Neofit Gym</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                <div class="gallery-item" data-aos="fade-up" data-aos-delay="100">
+                    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Galeri" class="w-full h-64 object-cover">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus text-2xl text-black"></i>
+                    </div>
+                </div>
+                <div class="gallery-item" data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Galeri" class="w-full h-64 object-cover">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus text-2xl text-black"></i>
+                    </div>
+                </div>
+                <div class="gallery-item" data-aos="fade-up" data-aos-delay="300">
+                    <img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Galeri" class="w-full h-64 object-cover">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus text-2xl text-black"></i>
+                    </div>
+                </div>
+                <div class="gallery-item" data-aos="fade-up" data-aos-delay="400">
+                    <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1110&q=80" alt="Galeri" class="w-full h-64 object-cover">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-search-plus text-2xl text-black"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="video-container mb-12" data-aos="fade-up">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/rR48sjsHmuQ?si=dOiMlEedTXZU3qZ0&amp;start=30" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            
+            <div class="mt-12 text-center" data-aos="fade-up">
+                <button class="border-2 border-neofit-green text-neofit-green hover:bg-neofit-green hover:text-gray-900 font-bold py-3 px-8 rounded-full text-lg transition duration-300">
+                    Lihat Semua Galeri
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimoni Member -->
+    <section id="testimoni" class="py-20 bg-neofit-gray relative">
+        <div class="absolute top-0 left-0 w-full h-full opacity-5" style="background: url('https://www.transparenttextures.com/patterns/carbon-fibre.png')"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="section-title text-3xl md:text-4xl font-bold mb-4">TESTIMONI <span class="text-neofit-green">MEMBER</span></h2>
+                <p class="max-w-2xl mx-auto text-gray-400 mt-6">Apa kata member kami tentang pengalaman mereka di Neofit Gym</p>
+            </div>
+            
+            <div class="testimonial-slider relative" data-aos="fade-up">
+                <div class="flex overflow-hidden">
+                    <div class="flex-shrink-0 w-full md:w-1/3 px-4">
+                        <div class="testimonial-card bg-neofit-dark rounded-2xl p-8 border border-gray-800 h-full">
+                            <div class="testimonial-content">
+                                <p class="text-gray-300 italic">"Saya sudah berlangganan di Neofit Gym selama 6 bulan dan hasilnya luar biasa! Tubuh saya lebih sehat dan bugar. Pelatihnya sangat profesional dan fasilitasnya lengkap."</p>
+                                <div class="testimonial-author">
+                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Member">
+                                    <div>
+                                        <h4 class="font-bold">Andi Prasetyo</h4>
+                                        <div class="flex text-yellow-400">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-shrink-0 w-full md:w-1/3 px-4">
+                        <div class="testimonial-card bg-neofit-dark rounded-2xl p-8 border border-gray-800 h-full">
+                            <div class="testimonial-content">
+                                <p class="text-gray-300 italic">"Sebagai ibu rumah tangga, saya kesulitan menjaga kebugaran. Tapi sejak bergabung di Neofit Gym, saya bisa tetap bugar dan sehat. Kelas Zumba sangat menyenangkan!"</p>
+                                <div class="testimonial-author">
+                                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80" alt="Member">
+                                    <div>
+                                        <h4 class="font-bold">Rina Wijaya</h4>
+                                        <div class="flex text-yellow-400">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-shrink-0 w-full md:w-1/3 px-4">
+                        <div class="testimonial-card bg-neofit-dark rounded-2xl p-8 border border-gray-800 h-full">
+                            <div class="testimonial-content">
+                                <p class="text-gray-300 italic">"Fasilitas di Neofit Gym sangat lengkap dan modern. Saya khususnya senang dengan area spa yang membantu pemulihan pasca latihan. Sangat direkomendasikan!"</p>
+                                <div class="testimonial-author">
+                                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Member">
+                                    <div>
+                                        <h4 class="font-bold">Joko Susilo</h4>
+                                        <div class="flex text-yellow-400">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star-half-alt"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog -->
+    <section class="py-20 bg-neofit-dark">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="section-title text-3xl md:text-4xl font-bold mb-4">ARTIKEL <span class="text-neofit-green">KEBUGARAN</span></h2>
+                <p class="max-w-2xl mx-auto text-gray-400 mt-6">Tips dan informasi terbaru seputar kebugaran dan gaya hidup sehat</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="blog-card bg-neofit-gray rounded-2xl overflow-hidden relative" data-aos="fade-up" data-aos-delay="100">
+                    <div class="relative">
+                        <img src="https://plus.unsplash.com/premium_photo-1663127634553-05615925ffd5?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8am9nZ2luZ3xlbnwwfDB8MHx8fDA%3D" alt="Blog" class="w-full h-52 object-cover transition duration-500">
+                        <div class="blog-date">15 Jun</div>
+                        <div class="blog-category">Nutrisi</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold my-3">5 Cara Meningkatkan Daya Tahan Tubuh</h3>
+                        <p class="text-gray-400 mb-4">Tips sederhana untuk meningkatkan imunitas tubuh dengan gaya hidup sehat dan latihan teratur.</p>
+                        <div class="blog-meta">
+                            <span><i class="far fa-user"></i> Admin</span>
+                            <span><i class="far fa-clock"></i> 5 min read</span>
+                        </div>
+                        <a href="#" class="text-neofit-green hover:underline flex items-center mt-4">
+                            Baca Selengkapnya <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="blog-card bg-neofit-gray rounded-2xl overflow-hidden relative" data-aos="fade-up" data-aos-delay="200">
+                    <div class="relative">
+                        <img src="https://plus.unsplash.com/premium_photo-1664476002571-ead0cbfc6d74?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bnV0cml0aW9ufGVufDB8MHwwfHx8MA%3D%3D" alt="Blog" class="w-full h-52 object-cover transition duration-500">
+                        <div class="blog-date">10 Jun</div>
+                        <div class="blog-category">Latihan</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold my-3">Nutrisi Penting untuk Atlet</h3>
+                        <p class="text-gray-400 mb-4">Memahami kebutuhan nutrisi yang tepat untuk mendukung performa olahraga Anda.</p>
+                        <div class="blog-meta">
+                            <span><i class="far fa-user"></i> Admin</span>
+                            <span><i class="far fa-clock"></i> 7 min read</span>
+                        </div>
+                        <a href="#" class="text-neofit-green hover:underline flex items-center mt-4">
+                            Baca Selengkapnya <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="blog-card bg-neofit-gray rounded-2xl overflow-hidden relative" data-aos="fade-up" data-aos-delay="300">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjl8fGZpdG5lc3N8ZW58MHwwfDB8fHww" alt="Blog" class="w-full h-52 object-cover transition duration-500">
+                        <div class="blog-date">5 Jun</div>
+                        <div class="blog-category">Rutinitas</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold my-3">Rutinitas Latihan untuk Pemula</h3>
+                        <p class="text-gray-400 mb-4">Program latihan 30 hari untuk pemula yang ingin memulai gaya hidup sehat.</p>
+                        <div class="blog-meta">
+                            <span><i class="far fa-user"></i> Admin</span>
+                            <span><i class="far fa-clock"></i> 6 min read</span>
+                        </div>
+                        <a href="#" class="text-neofit-green hover:underline flex items-center mt-4">
+                            Baca Selengkapnya <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center" data-aos="fade-up">
+                <button class="border-2 border-neofit-green text-neofit-green hover:bg-neofit-green hover:text-gray-900 font-bold py-3 px-8 rounded-full text-lg transition duration-300">
+                    Lihat Semua Artikel
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-20 bg-neofit-gray">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="section-title text-3xl md:text-4xl font-bold mb-4"><span class="text-neofit-green">FAQs</span></h2>
+                <p class="max-w-2xl mx-auto text-gray-400 mt-6">Pertanyaan umum tentang Neofit Gym</p>
+            </div>
+            
+            <div class="max-w-3xl mx-auto" data-aos="fade-up">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3 class="font-bold">Apa saja fasilitas yang tersedia di Neofit Gym?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-gray-400 mt-4">Neofit Gym menyediakan berbagai fasilitas lengkap seperti area latihan beban, area cardio, kolam renang, area spa, kafe sehat, dan berbagai kelas kelompok.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3 class="font-bold">Berapa biaya membership di Neofit Gym?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-gray-400 mt-4">Kami menawarkan tiga paket membership: Pemula (Rp 250.000/bulan), Standar (Rp 450.000/bulan), dan Premium (Rp 750.000/bulan). Setiap paket memiliki fitur dan manfaat yang berbeda.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3 class="font-bold">Apakah ada program khusus untuk pemula?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-gray-400 mt-4">Ya, kami memiliki program khusus untuk pemula yang mencakup orientasi fasilitas, pelatihan dasar, dan kelas khusus pemula yang diawasi oleh pelatih profesional.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3 class="font-bold">Jam operasional Neofit Gym?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-gray-400 mt-4">Neofit Gym buka setiap hari dari pukul 05:00 pagi hingga 22:00 malam.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3 class="font-bold">Bagaimana cara mendaftar menjadi member?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="text-gray-400 mt-4">Anda dapat mendaftar secara online melalui website kami atau langsung datang ke cabang terdekat. Tim kami akan membantu Anda memilih paket yang sesuai dengan kebutuhan Anda.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section py-20">
+        <div class="container mx-auto px-4">
+            <div class="cta-card max-w-4xl mx-auto p-10 text-center" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">SIAP UNTUK MULAI PERUBAHAN?</h2>
+                <p class="text-xl mb-8 max-w-2xl mx-auto">Bergabunglah dengan ribuan member kami dan mulai perjalanan kebugaran Anda hari ini!</p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button class="bg-neofit-green hover:bg-lime-400 text-gray-900 font-bold py-4 px-10 rounded-full text-lg transition duration-300 transform hover:scale-105">
+                        <i class="fas fa-user-plus mr-2"></i> Daftar Sekarang
+                    </button>
+                    <button class="border-2 border-neofit-green text-neofit-green hover:bg-neofit-green hover:text-gray-900 font-bold py-4 px-10 rounded-full text-lg transition duration-300">
+                        <i class="fas fa-calendar-check mr-2"></i> Booking Trial
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cabang -->
+    <section id="cabang" class="py-20 bg-neofit-dark">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="section-title text-3xl md:text-4xl font-bold mb-4">CABANG <span class="text-neofit-green">NEOFIT GYM</span></h2>
+                <p class="max-w-2xl mx-auto text-gray-400 mt-6">Kami memiliki beberapa cabang yang tersebar di berbagai kota</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-neofit-gray rounded-2xl p-8 border border-gray-800 hover:border-neofit-green transition duration-300" data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-neofit-green text-4xl mb-4">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Jakarta Pusat</h3>
+                    <p class="text-gray-400 mb-4">Jl. Sudirman No. 123, Jakarta Pusat</p>
+                    <p class="text-gray-400 mb-4">Telp: (021) 1234-5678</p>
+                    <div class="flex items-center text-neofit-green mb-4">
+                        <i class="fas fa-clock mr-2"></i>
+                        <span>05:00 - 22:00 WIB</span>
+                    </div>
+                    <button class="text-neofit-green hover:underline flex items-center">
+                        Lihat di Peta <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                    </button>
+                </div>
+                
+                <div class="bg-neofit-gray rounded-2xl p-8 border border-gray-800 hover:border-neofit-green transition duration-300" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-neofit-green text-4xl mb-4">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Bandung</h3>
+                    <p class="text-gray-400 mb-4">Jl. Diponegoro No. 45, Bandung</p>
+                    <p class="text-gray-400 mb-4">Telp: (022) 2345-6789</p>
+                    <div class="flex items-center text-neofit-green mb-4">
+                        <i class="fas fa-clock mr-2"></i>
+                        <span>05:30 - 21:30 WIB</span>
+                    </div>
+                    <button class="text-neofit-green hover:underline flex items-center">
+                        Lihat di Peta <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                    </button>
+                </div>
+                
+                <div class="bg-neofit-gray rounded-2xl p-8 border border-gray-800 hover:border-neofit-green transition duration-300" data-aos="fade-up" data-aos-delay="300">
+                    <div class="text-neofit-green text-4xl mb-4">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Surabaya</h3>
+                    <p class="text-gray-400 mb-4">Jl. Tunjungan No. 67, Surabaya</p>
+                    <p class="text-gray-400 mb-4">Telp: (031) 3456-7890</p>
+                    <div class="flex items-center text-neofit-green mb-4">
+                        <i class="fas fa-clock mr-2"></i>
+                        <span>06:00 - 22:00 WIB</span>
+                    </div>
+                    <button class="text-neofit-green hover:underline flex items-center">
+                        Lihat di Peta <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kontak -->
+    <section id="kontak" class="py-20 bg-neofit-gray">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="section-title text-3xl md:text-4xl font-bold mb-4">HUBUNGI <span class="text-neofit-green">KAMI</span></h2>
+                <p class="max-w-2xl mx-auto text-gray-400 mt-6">Kami siap membantu Anda dengan pertanyaan atau informasi lebih lanjut</p>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row gap-10">
+                <div class="lg:w-1/2" data-aos="fade-right">
+                    <form class="contact-form bg-neofit-dark rounded-2xl p-8 border border-gray-800">
+                        <div class="form-group">
+                            <label for="name">Nama Lengkap</label>
+                            <input type="text" id="name" placeholder="Masukkan nama Anda">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" placeholder="Masukkan email Anda">
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subjek</label>
+                            <input type="text" id="subject" placeholder="Subjek pesan">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Pesan</label>
+                            <textarea id="message" placeholder="Tulis pesan Anda di sini"></textarea>
+                        </div>
+                        <button type="submit">Kirim Pesan</button>
+                    </form>
+                </div>
+                
+                <div class="lg:w-1/2" data-aos="fade-left">
+                    <div class="bg-neofit-dark rounded-2xl p-8 h-full border border-gray-800">
+                        <h3 class="text-2xl font-bold mb-6">Informasi Kontak</h3>
+                        
+                        <div class="contact-info">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h4 class="font-bold mb-1">Alamat Kami</h4>
+                                <p class="text-gray-400">Jl. Sudirman No. 123, Jakarta Pusat</p>
+                                <p class="text-gray-400">Indonesia 12345</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-info">
+                            <i class="fas fa-phone-alt"></i>
+                            <div>
+                                <h4 class="font-bold mb-1">Telepon</h4>
+                                <p class="text-gray-400">Telp: (021) 1234-5678</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-info">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h4 class="font-bold mb-1">Email</h4>
+                                <p class="text-gray-400">info@neofitgym.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-info">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <h4 class="font-bold mb-1">Jam Operasional</h4>
+                                <p class="text-gray-400">05:00 - 22:00 WIB (Setiap Hari)</p>
+                            </div>
+                        </div>
+                        
+                        <div class="map-container mt-6 mb-8">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.277443899993!2d106.8266633147689!3d-6.224970195491397!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3e9d3d5d3d3%3A0x3d3d3d3d3d3d3d3d!2sSudirman%20St%2C%20Jakarta%20Pusat!5e0!3m2!1sen!2sid!4v1620000000000!5m2!1sen!2sid" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-xl font-bold mb-4">Media Sosial</h4>
+                            <div class="social-links">
+                                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-youtube"></i></a>
+                                <a href="#"><i class="fab fa-tiktok"></i></a>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <h4 class="text-xl font-bold mb-4">Newsletter</h4>
+                            <p class="text-gray-400 mb-4">Dapatkan tips kebugaran dan penawaran spesial</p>
+                            <div class="newsletter-form">
+                                <input type="email" placeholder="Masukkan email Anda">
+                                <button>Berlangganan</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-neofit-dark border-t border-gray-800 pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+                <div class="footer-about" data-aos="fade-up">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-full bg-neofit-green flex items-center justify-center mr-3">
+                            <i class="fas fa-dumbbell text-black text-xl"></i>
+                        </div>
+                        <h2 class="text-2xl font-bold text-neofit-green tracking-wider">NEOFIT<span class="text-white">GYM</span></h2>
+                    </div>
+                    <p class="text-gray-400 mb-6">Pusat kebugaran premium dengan fasilitas lengkap dan pelatih profesional untuk membantu Anda mencapai tujuan kebugaran.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links" data-aos="fade-up" data-aos-delay="100">
+                    <h4 class="text-lg font-bold">Tautan Cepat</h4>
+                    <ul>
+                        <li><a href="#tentang">Tentang Kami</a></li>
+                        <li><a href="#fasilitas">Fasilitas</a></li>
+                        <li><a href="#paket">Paket & Harga</a></li>
+                        <li><a href="#jadwal">Jadwal Kelas</a></li>
+                        <li><a href="#trainer">Trainer</a></li>
+                        <li><a href="#galeri">Galeri</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links" data-aos="fade-up" data-aos-delay="200">
+                    <h4 class="text-lg font-bold">Layanan</h4>
+                    <ul>
+                        <li><a href="#">Personal Training</a></li>
+                        <li><a href="#">Nutrisi & Diet</a></li>
+                        <li><a href="#">Konsultasi Kesehatan</a></li>
+                        <li><a href="#">Program Penurunan Berat</a></li>
+                        <li><a href="#">Program Peningkatan Massa Otot</a></li>
+                        <li><a href="#">Kelas Kelompok</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact" data-aos="fade-up" data-aos-delay="300">
+                    <h4 class="text-lg font-bold">Kontak Kami</h4>
+                    <div class="contact-info mb-4">
+                        <i class="fas fa-map-marker-alt mr-3"></i>
+                        <span>Jl. Sudirman No. 123, Jakarta Pusat</span>
+                    </div>
+                    <div class="contact-info mb-4">
+                        <i class="fas fa-phone-alt mr-3"></i>
+                        <span>(021) 1234-5678</span>
+                    </div>
+                    <div class="contact-info mb-4">
+                        <i class="fas fa-envelope mr-3"></i>
+                        <span>info@neofitgym.com</span>
+                    </div>
+                    <div class="contact-info">
+                        <i class="fas fa-clock mr-3"></i>
+                        <span>05:00 - 22:00 WIB</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Neofit Gym. Hak Cipta Dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+        });
+        
+        // Preloader
+        window.addEventListener('load', function() {
+            const preloader = document.querySelector('.preloader');
+            preloader.classList.add('fade-out');
+            setTimeout(() => {
+                preloader.style.display = 'none';
+            }, 500);
+        });
+        
+        // Mobile Menu
+        const menuToggle = document.getElementById('menuToggle');
+        const closeMenu = document.getElementById('closeMenu');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const overlay = document.getElementById('overlay');
+        
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        closeMenu.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+        
+        overlay.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+        
+        // Close menu when clicking on links
+        const mobileLinks = document.querySelectorAll('.mobile-menu a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+        
+        // Progress bar on scroll
+        window.onscroll = function() {
+            var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            var scrolled = (winScroll / height) * 100;
+            document.getElementById("progressBar").style.width = scrolled + "%";
+            
+            // Show/hide scroll to top button
+            var backToTop = document.getElementById("backToTop");
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                backToTop.classList.add("visible");
+            } else {
+                backToTop.classList.remove("visible");
+            }
+        };
+        
+        // Scroll to top functionality
+        document.getElementById("backToTop").addEventListener("click", function() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Counter animation
+        function animateCounter(element, target) {
+            let count = 0;
+            const increment = target / 100;
+            const timer = setInterval(() => {
+                count += increment;
+                if (count >= target) {
+                    element.innerText = target;
+                    clearInterval(timer);
+                } else {
+                    element.innerText = Math.ceil(count);
+                }
+            }, 20);
+        }
+        
+        // Initialize counters when section is in view
+        const counterSection = document.querySelector('.stats-card');
+        const counters = document.querySelectorAll('.counter');
+        const targets = [5000, 25, 15, 98];
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    counters.forEach((counter, index) => {
+                        animateCounter(counter, targets[index]);
+                    });
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        observer.observe(counterSection);
+        
+        // FAQ accordion
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                item.classList.toggle('active');
+            });
+        });
+        
+        // Testimonial slider
+        const testimonialSlider = document.querySelector('.testimonial-slide');
+        const testimonialNavs = document.querySelectorAll('.testimonial-nav');
+        const testimonialDots = document.querySelectorAll('.testimonial-dot');
+        let slideIndex = 0;
+        
+        function showSlide(index) {
+            testimonialSlider.style.transform = `translateX(-${index * 100}%)`;
+            testimonialDots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+        }
+        
+        testimonialNavs.forEach(nav => {
+            nav.addEventListener('click', () => {
+                if (nav.classList.contains('next')) {
+                    slideIndex = (slideIndex + 1) % 3;
+                } else {
+                    slideIndex = (slideIndex - 1 + 3) % 3;
+                }
+                showSlide(slideIndex);
+            });
+        });
+        
+        testimonialDots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                slideIndex = index;
+                showSlide(slideIndex);
+            });
+        });
+        
+        // Auto slide
+        setInterval(() => {
+            slideIndex = (slideIndex + 1) % 3;
+            showSlide(slideIndex);
+        }, 5000);
+        
+        // Floating action buttons
+        const whatsappBtn = document.querySelector('.floating-btn.whatsapp');
+        const callBtn = document.querySelector('.floating-btn.call');
+        
+        whatsappBtn.addEventListener('click', () => {
+            window.open('https://wa.me/6281234567890', '_blank');
+        });
+        
+        callBtn.addEventListener('click', () => {
+            window.location.href = 'tel:+6281234567890';
+        });
+    </script>
+</body>
+</html>
